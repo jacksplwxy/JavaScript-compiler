@@ -212,8 +212,8 @@
 * JavaScript => V8（C ++）=> 机器码
 * V8 实现了 ECMA-262 中指定的名为 ECMAScript 的脚本。 ECMAScript 由 Ecma International 创建，用于标准化JavaScript。
 * V8 可以独立运行，也可以嵌入到任何 C++ 程序中。它有一些钩子，允许你编写自己的C++代码供 JavaScript 使用。这实际上允许你通过将 V8 嵌入到 C++ 代码中来向 JavaScript 添加功能，以便使你的 C++ 代码实现比 ECMAScript 标准更多的功能。
-* [V8引擎介绍](./专题/V8引擎介绍.png)
-* [V8如何生成机器码](./专题/V8如何生成机器码.png)
+* [V8引擎介绍](./专题/V8引擎介绍（httpszhuanlan.zhihu.comp27628685）.png)
+* [V8如何生成机器码](./专题/V8如何生成机器码（httpswww.zhihu.comquestion57532509）.png)
 ### 字节码：
 * Bytecode（字节码）是一种IR（中间表示）的形式。
 * 通常说的“字节码”其实就是一种线性代码，它最重要的特征是：
