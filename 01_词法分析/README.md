@@ -31,27 +31,39 @@
 * 正则表达式的自动机实现（自动化词法生成器的实现）：
   因为NFA更直观，所以先将正则表达式转换为NFA。而DFA更容易使用代码实现，所以再将NFA转换为DFA。简而言之就是：正则表达式 → NFA → DFA
 * 正则表达式虽然可以等价转换为DFA，但为了简化代码，我们完全可以直接使用DFA实现一个词法分析器。
-* 关系运算符DFA自动机（部分）：
+* 关系运算符DFA（部分）：
   <br/>第一行解析:→state：0  ->→ state:1   -=→ state:5 makeToken（op,≥）：
   <br/>表示开始状态0，当遇到>符号时进入状态1，当遇到=符号时进入状态5，此时结束匹配，生成token为操作符≥
   ```
-  →state：0  ->→ state:1   -=→ state:5 makeToken（op,≥）
-                           -others→ state:6 makeToken（op,>）
-             -<→ state:2   -=→ state:7 makeToken（op,≤）
-                           -others→ state:8 makeToken（op,<）
-             -=→ state:3   -=→ state:9 makeToken（op,==）
-                           -others→ err
-             -!=→ state:4  -=→ state:10 makeToken（op,!==）
-                           -others→ err
+  →state：0  -+→ state:1    -+→ makeToken（op,++）
+                            -others→ makeToken（op,+）
+             --→ state:2    --→ makeToken（op,--）
+                            -others→ makeToken（op,-）
+             -*→ makeToken（op,*）    
+             -/→ makeToken（op,/） 
+             -=→ state:4    -=→ makeToken（op,==）
+                            -others→ makeToken（op,=）
+             -&→ state:5    -&→ makeToken（op,&&）
+                            -others→ makeToken（op,&）
+             -|→ state:6    -|→ makeToken（op,||）
+                            -others→ makeToken（op,|）
+             ->→ state:7    -=→ makeToken（op,>=）
+                            -others→ makeToken（op,>）
+             -<→ state:8    -=→ makeToken（op,<>=）
+                            -others→ makeToken（op,<）
+             -!→ state:9   -=→ makeToken（op,!=）
+                            -others→ makeToken（op,!）
+             -(→ makeToken（op,(）
+             -)→ makeToken（op,)）
              -others→ err
   ```
-* 变量名DFA自动机：
+* 变量名DFA：
   ```
   →state：0  -a-z||A-Z→ state:1   -a-z||A-Z||0-9||_→ state:1 
                                   -others→ state:2 makeToken（接着判断该tokens是否属于keywords）
              -others→ err
   ```
-* 数字DFA自动机(不含二进制和科学计算法)：
+* 数字DFA(不含二进制和科学计算法)：
   ```
   →state：0  -1-9→ state:1   -0-9→ state:1
                              -others→ state:6 makeToken
