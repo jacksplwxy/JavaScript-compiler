@@ -4,9 +4,13 @@
   ~&emsp;使用正则进行词法分析：需要写大量的正则表达式，正则之间还有冲突需要处理，不容易维护，性能不高，所以正则只适合一些简单的模板语法，真正复杂的语言并不合适。有的语言并不一定自带正则引擎。
   <br/>
   ~&emsp;使用自动机进行词法分析：自动机可以很好的生成token
-* 自动机分类：
-  <br/>~&emsp;DFA：确定有穷自动机
-  <br/>~&emsp;NFA：非确定有穷自动机
+* 有穷状态自动机（finite state machine）：在有限个输入的情况下，在这些状态中转移并期望最终达到终止状态。
+* 有穷状态自动机根据确定性可以分为：
+  <br/>~&emsp;“确定有穷状态自动机”（DFA - Deterministic finite automaton）
+  <br/>~&emsp;“非确定有穷自动机”（NFA - Non-deterministic finite automaton）。
+* DFA：在输入一个状态时，只得到一个固定的状态。DFA 可以认为是一种特殊的 NFA。
+* NFA：当输入一个字符或者条件得到一个状态机的集合。JavaScript 正则采用的是 NFA 引擎
+* ε-NFA：NFA的一个小分支。我们用ε边来表示一个状态可以不读入字符就跳转到另一个状态 上，ε-NFA就是在NFA中存在这种边的情况
 * 示例：实现一个正则为(a|b)*abb的自动机（https://www.bilibili.com/video/BV1zW411t7YE?p=15，07：05）
   <br/>~&emsp;NFA的实现(状态0遇到a有0和1两种状态,无法确定)
     ```
