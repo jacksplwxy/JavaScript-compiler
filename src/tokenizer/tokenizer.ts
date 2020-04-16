@@ -5,14 +5,16 @@
 import { LexicalError } from '../common/LexicalError'
 
 
-interface Token {
+export interface IToken {
     type: string
     value: string
     lineNo?: number
 }
 
 export class Tokenizer {
-    public tokens: Array<Token> = []
+    public tokens: Array<IToken> = []
+    private codeIndex: number = 0   //当前扫描到源码的第codeIndex个字符
+    private lineNo: number = 0  //行号
     readonly KEYWORDS: Array<string> = [
         'var',
         'if',
@@ -28,54 +30,52 @@ export class Tokenizer {
         this.scanner(sourceCode)
     }
     //token生成器
-    private makeToken(type: string, value: string, lineNo?: number): Token {
+    private makeToken(type: string, value: string, lineNo?: number): IToken {
         return { type, value, lineNo }
+    }
+    //自动机装饰器
+    private decorator(automation_func): Function {
+        return (...args) => {
+            const token: IToken = automation_func(...args)
+            this.codeIndex += token.value.length
+            token.lineNo = this.lineNo
+            this.tokens.push(token)
+        }
     }
     //源码扫描器
     private scanner(sourceCode: string): void {
         this.tokens = []
-        let codeIndex: number = 0   //当前扫描到源码的第codeIndex个字符
-        let lineNo: number = 0  //行号
-        //自动机装饰器
-        function decorator(automation_func): Function {
-            return (...args) => {
-                const token: Token = automation_func(...args)
-                codeIndex += token.value.length
-                token.lineNo = lineNo
-                this.tokens.push(token)
-            }
-        }
-        const getTokenLiteral: Function = decorator.call(this, this.literalAutomat.bind(this))
-        const getTokenNumber: Function = decorator.call(this, this.numberAutomat.bind(this))
-        const getTokenOp: Function = decorator.call(this, this.operatorAutomat.bind(this))
-        while (codeIndex < sourceCode.length) {
-            const currentChar: string = sourceCode[codeIndex]
+        this.codeIndex = 0
+        this.lineNo = 0
+        const getTokenLiteral: Function = this.decorator(this.literalAutomat.bind(this))
+        const getTokenNumber: Function = this.decorator(this.numberAutomat.bind(this))
+        const getTokenOp: Function = this.decorator(this.operatorAutomat.bind(this))
+        while (this.codeIndex < sourceCode.length) {
+            const currentChar: string = sourceCode[this.codeIndex]
             if (currentChar.match(/[A-Za-z]/)) {
-                getTokenLiteral(sourceCode, codeIndex)
+                getTokenLiteral(sourceCode, this.codeIndex)
             } else if (currentChar.match(/[0-9.]/)) {
-                getTokenNumber(sourceCode, codeIndex)
-            }
-            else if (currentChar.match(/[+-\\*/&|=!;()]/)) {
-                getTokenOp(sourceCode, codeIndex)
+                getTokenNumber(sourceCode, this.codeIndex)
+            } else if (currentChar.match(/[+-\\*/&|=!;()]/)) {
+                getTokenOp(sourceCode, this.codeIndex)
             } else if (currentChar === '{' || currentChar === '}') {
-                codeIndex++
-                this.tokens.push(this.makeToken('block', currentChar, lineNo))
-
+                this.codeIndex++
+                this.tokens.push(this.makeToken('block', currentChar, this.lineNo))
             } else if (currentChar === '\n' || currentChar === '\r') {
-                codeIndex++
-                lineNo++
+                this.codeIndex++
+                this.lineNo++
                 continue
             } else if (currentChar === ' ' || currentChar === '\t') {
-                codeIndex++
+                this.codeIndex++
                 continue
             } else {
-                throw new LexicalError(`lexical error:unexpected char ${currentChar} in line ${lineNo} `)
+                throw new LexicalError(`lexical error:unexpected char ${currentChar} in line ${this.lineNo} `)
             }
         }
     }
 
     //变量自动机
-    private literalAutomat(sourceCode: string, index: number): Token {
+    private literalAutomat(sourceCode: string, index: number): IToken {
         let state: number = 0
         let str: string = ''
         function getNextChar(): string {
@@ -111,7 +111,7 @@ export class Tokenizer {
     }
 
     //数字自动机
-    private numberAutomat(sourceCode: string, index: number): Token {
+    private numberAutomat(sourceCode: string, index: number): IToken {
         let state: number = 0
         let num: string = ''
         while (true) {
@@ -181,7 +181,7 @@ export class Tokenizer {
     }
 
     //运算符自动机
-    private operatorAutomat(sourceCode: string, index: number): Token {
+    private operatorAutomat(sourceCode: string, index: number): IToken {
         let state: number = 0
         let operator: string = ''
         while (true) {
@@ -286,5 +286,5 @@ export class Tokenizer {
 }
 
 //代码测试
-let tokenizer = new Tokenizer('var myName = jacksplwxy + test')
-console.log('结果:', tokenizer.tokens)
+// let tokenizer = new Tokenizer('var myName = jacksplwxy + test')
+// console.log('结果:', tokenizer.tokens)
