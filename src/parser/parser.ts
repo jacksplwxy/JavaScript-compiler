@@ -1,6 +1,5 @@
 
 import { Tokenizer, IToken } from '../tokenizer/tokenizer'
-
 import { IStmt, Program, AssignStmt, Function, Block, IfStmt, ReturnStmt, FunctionCallStmt } from './statement'
 import { Expr, Args } from './expression'
 import { Terminal, Identifier, Numeral } from './terminal'

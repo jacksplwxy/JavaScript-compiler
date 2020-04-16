@@ -80,3 +80,4 @@
              -.→ state:3     -0-9→ state:5           
              -others→ err
   ```
+* [词法分析器代码入口](../src/tokenizer/tokenizer.ts)
