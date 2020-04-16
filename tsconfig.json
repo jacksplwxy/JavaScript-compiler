@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es6",
         "noImplicitAny": false,
-        "module": "amd",
+        "module": "umd",
         "removeComments": false,
         "sourceMap": false,
         "outDir": "dist"
