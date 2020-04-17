@@ -198,10 +198,10 @@
   </br>
   ~&emsp; LR分析法：适用性比算符优先分析法更广
 * 自顶向下文法推导分析树的过程中，每一步都需要做2个选择，例如简化版本算术表达式文法G：
-</br>
-  ①替换当前句型中的哪个非终结符：例如简化版本算术表达式文法G的开始符E → E + E，这时该选择哪个E进行替换呢？
   </br>
-  ②用该非终结符的哪个候选式进行替换：例如简化版本算术表达式文法中的E，我们该选择5个候选式的哪个选式进行替换呢？
+  &emsp;&emsp;①替换当前句型中的哪个非终结符：例如简化版本算术表达式文法G的开始符E → E + E，这时该选择哪个E进行替换呢？
+  </br>
+  &emsp;&emsp;②用该非终结符的哪个候选式进行替换：例如简化版本算术表达式文法中的E，我们该选择5个候选式的哪个选式进行替换呢？
 * 最左推导和最右推导：
   </br>
   ~&emsp;  最左推导：在自顶向下最左推导中，总是选择每个句型的最左终结符进行替换。最右规约是最左推导自底向上的逆过程
@@ -250,20 +250,25 @@
 * 判断文法是否是LL(1)文法：
    </br>
    ~&emsp; 根据LL(1) 文法的定义来判断，分三步走：
-    ```
-   ①文法不含左递归
-   ②对文法中的任一个非终结符A的各个产生式的侯选首终结符集两两不相交，即：若A->α1|α2|…|αn ，则 First(αi)∩ First(αj) = φ ( i ≠ j )
-   ③对文法中的每个非终结符A,若它的某个首终结符集含有ε ，则First(A)∩Follow(A) = φ
-    ```
-    ~&emsp; 如：判断下述文法是否是LL(1)文法：S -> aAS|bA ->  bA|ε
-     ```
-    ①该文法不含左递归
-    ②First(S ->aAS)={a} First(S ->b)={b}  First(A ->bA)={b} First(A ->ε)={ε}  S和A的侯选式的first集都不相交，满足条件②
-    ③由于ε∈First(A ->ε)  Follow(A)=First(S)={a,b} Follow(A) ∩ First(A->bA) ) ≠ φ不满足条件3，则不是LL(1)文法
-    ```
+   </br>
+   ~&emsp;~&emsp;①文法不含左递归
+   </br>
+   ~&emsp;~&emsp;②对文法中的任一个非终结符A的各个产生式的侯选首终结符集两两不相交，即：若A->α1|α2|…|αn ，则 First(αi)∩ First(αj) = φ ( i ≠ j )
+   </br>
+   ~&emsp;~&emsp;③对文法中的每个非终结符A,若它的某个首终结符集含有ε ，则First(A)∩Follow(A) = φ
+   </br>
+   ~&emsp; 如：判断下述文法是否是LL(1)文法：S -> aAS|bA ->  bA|ε
+   </br>
+   ~&emsp;~&emsp;①该文法不含左递归
+   </br>
+   ~&emsp;~&emsp;②First(S ->aAS)={a} First(S ->b)={b}  First(A ->bA)={b} First(A ->ε)={ε}  S和A的侯选式的first集都不相交，满足条件②
+   </br>
+   ~&emsp;~&emsp;③由于ε∈First(A ->ε)  Follow(A)=First(S)={a,b} Follow(A) ∩ First(A->bA) ) ≠ φ不满足条件3，则不是LL(1)文法
 * LR(k)文法：没有严格的定义，一个文法只要能构造出语法分析表，适用移入—规约语法分析器解析，它就是LR文法。
   </br>
-  ~&emsp; 自底向上语法分析算法是从语法分析树的叶子节点开始，逐渐向上到达根节点，反向构造出一个最右推导序列，从而构建完整的语法分析树，适用于LR(k)文法。     </br>~&emsp; LR(k)文法的L是输入从左到右，R是反向最右推导（rightmost derivation in reverse），k是前瞻符号数量。
+  ~&emsp; 自底向上语法分析算法是从语法分析树的叶子节点开始，逐渐向上到达根节点，反向构造出一个最右推导序列，从而构建完整的语法分析树，适用于LR(k)文法。
+  </br>
+  ~&emsp; LR(k)文法的L是输入从左到右，R是反向最右推导（rightmost derivation in reverse），k是前瞻符号数量。
 * LR文法比LL文法的优势：
   </br>
   ~&emsp; LR文法是LL文法的超集，LR文法约束非常宽松，LR文法几乎适用于所有编程语言。
@@ -274,17 +279,18 @@
 * LL文法比LR文法的优势：（https://www.zhihu.com/question/21475266/answer/18346898）
   </br>
   &emsp;&emsp;LR文法解析通常采用自底向上语法分析算法，而自底向上语法分析算法的实现较复杂，可读性差，所以很多教材推荐采用工具生成（绝大多数是   bison/yacc）。而手工实现LL文法的自顶向下parse工程上更适合。
+  </br>
   &emsp;&emsp;对LL文法进行优化可以很大程度抵消LR文法的优势或者占据优势：
-    </br>
-    ~ &emsp; 效率：Terence Parr，ANTLR的作者，开发了LL'(k) parser，把复杂度降低到O(|T| x k)，所以LL文法parse同样高效，其自动化生成算法也可被工程应用
-    </br>
-    ~ &emsp; 约束范围：LL'(k)的适应范围小于LL(k)但大于LL(k-1)。目前流行的LR parser generator是LALR，其parsing strength弱于LR(1)。所以还不能和任意LL(k)相比
-    </br>
-    ~ &emsp; 把LL(k)语法改写为LR(1)是非常反直观的做法。
-    </br>
-    ~ &emsp; Bottom-up parser的优势建立在严格的数学基础上，要求语言必须是context-free（上下文无关）语法。实际中严格的context-free语法很少。可读性极好的 LL parser可以任意加入ad-hoc trick（特殊处理技巧）来分析context-sensitive（上下文相关）语法，乃至于使用回溯来分析undetermined（未确定）语法。而bottom-up parser就无能为力了。
-    </br>
-    ~ &emsp; 实际中设计语言可以尽量向LL(1)靠拢。注意这一条并不和上一条矛盾。一个语言可以是99%的LL(1)语法加上几个undetermined语法的特例。这时用bottom-up parser 最尴尬的，parsing strength在99%的情况下白白浪费（之所以说是浪费是因为这种strength是以readability为代价的），在1%的特例中还非常难于处理
+  </br>
+  ~ &emsp; 效率：Terence Parr，ANTLR的作者，开发了LL'(k) parser，把复杂度降低到O(|T| x k)，所以LL文法parse同样高效，其自动化生成算法也可被工程应用
+  </br>
+  ~ &emsp; 约束范围：LL'(k)的适应范围小于LL(k)但大于LL(k-1)。目前流行的LR parser generator是LALR，其parsing strength弱于LR(1)。所以还不能和任意LL(k)相比
+  </br>
+  ~ &emsp; 把LL(k)语法改写为LR(1)是非常反直观的做法。
+  </br>
+  ~ &emsp; Bottom-up parser的优势建立在严格的数学基础上，要求语言必须是context-free（上下文无关）语法。实际中严格的context-free语法很少。可读性极好的 LL parser可以任意加入ad-hoc trick（特殊处理技巧）来分析context-sensitive（上下文相关）语法，乃至于使用回溯来分析undetermined（未确定）语法。而bottom-up parser就无能为力了。
+  </br>
+  ~ &emsp; 实际中设计语言可以尽量向LL(1)靠拢。注意这一条并不和上一条矛盾。一个语言可以是99%的LL(1)语法加上几个undetermined语法的特例。这时用bottom-up parser 最尴尬的，parsing strength在99%的情况下白白浪费（之所以说是浪费是因为这种strength是以readability为代价的），在1%的特例中还非常难于处理
     
 * LL和LR的范围：
   </br>
