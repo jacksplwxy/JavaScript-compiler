@@ -14,14 +14,14 @@
 * NFA：当输入一个字符或者条件得到一个状态机的集合。JavaScript 正则采用的是 NFA 引擎
 * ε-NFA：NFA的一个小分支。我们用ε边来表示一个状态可以不读入字符就跳转到另一个状态 上，ε-NFA就是在NFA中存在这种边的情况
 * 示例：实现一个正则为(a|b)*abb的自动机（https://www.bilibili.com/video/BV1zW411t7YE?p=15，07：05）
-  <br/>
-  ~&emsp;NFA的实现(状态0遇到a有0和1两种状态,无法确定)
+    <br/>
+    ~&emsp;NFA的实现(状态0遇到a有0和1两种状态,无法确定)
     ```
     →state：0  -a→ state:0
                -b→ state:0
                -a→ state:1   -b→ state:2   -b→ state:3 makeToken
     ```
-  <br/>~&emsp;DFA的实现（状态0遇到a只有state1一种状态）
+    ~&emsp;DFA的实现（状态0遇到a只有state1一种状态）
     ```
     →state：0  -b→ state:0
                -a→ state:1   -b→ state:2   -b→ state:3 makeToken  -a→ state:1
