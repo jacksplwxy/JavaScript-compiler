@@ -251,19 +251,19 @@
    </br>
    ~&emsp; 根据LL(1) 文法的定义来判断，分三步走：
    </br>
-   ~&emsp;~&emsp;①文法不含左递归
+   &emsp;&emsp;①文法不含左递归
    </br>
-   ~&emsp;~&emsp;②对文法中的任一个非终结符A的各个产生式的侯选首终结符集两两不相交，即：若A->α1|α2|…|αn ，则 First(αi)∩ First(αj) = φ ( i ≠ j )
+   &emsp;&emsp;②对文法中的任一个非终结符A的各个产生式的侯选首终结符集两两不相交，即：若A->α1|α2|…|αn ，则 First(αi)∩ First(αj) = φ ( i ≠ j )
    </br>
-   ~&emsp;~&emsp;③对文法中的每个非终结符A,若它的某个首终结符集含有ε ，则First(A)∩Follow(A) = φ
+   &emsp;&emsp;③对文法中的每个非终结符A,若它的某个首终结符集含有ε ，则First(A)∩Follow(A) = φ
    </br>
    ~&emsp; 如：判断下述文法是否是LL(1)文法：S -> aAS|bA ->  bA|ε
    </br>
-   ~&emsp;~&emsp;①该文法不含左递归
+   &emsp;&emsp;①该文法不含左递归
    </br>
-   ~&emsp;~&emsp;②First(S ->aAS)={a} First(S ->b)={b}  First(A ->bA)={b} First(A ->ε)={ε}  S和A的侯选式的first集都不相交，满足条件②
+   &emsp;&emsp;②First(S ->aAS)={a} First(S ->b)={b}  First(A ->bA)={b} First(A ->ε)={ε}  S和A的侯选式的first集都不相交，满足条件②
    </br>
-   ~&emsp;~&emsp;③由于ε∈First(A ->ε)  Follow(A)=First(S)={a,b} Follow(A) ∩ First(A->bA) ) ≠ φ不满足条件3，则不是LL(1)文法
+   &emsp;&emsp;③由于ε∈First(A ->ε)  Follow(A)=First(S)={a,b} Follow(A) ∩ First(A->bA) ) ≠ φ不满足条件3，则不是LL(1)文法
 * LR(k)文法：没有严格的定义，一个文法只要能构造出语法分析表，适用移入—规约语法分析器解析，它就是LR文法。
   </br>
   ~&emsp; 自底向上语法分析算法是从语法分析树的叶子节点开始，逐渐向上到达根节点，反向构造出一个最右推导序列，从而构建完整的语法分析树，适用于LR(k)文法。
