@@ -6,13 +6,16 @@
   ~&emsp;使用自动机进行词法分析：自动机可以很好的生成token
 * 有穷状态自动机（finite state machine）：在有限个输入的情况下，在这些状态中转移并期望最终达到终止状态。
 * 有穷状态自动机根据确定性可以分为：
-  <br/>~&emsp;“确定有穷状态自动机”（DFA - Deterministic finite automaton）
-  <br/>~&emsp;“非确定有穷自动机”（NFA - Non-deterministic finite automaton）。
+  <br/>
+  ~&emsp;“确定有穷状态自动机”（DFA - Deterministic finite automaton）
+  <br/>
+  ~&emsp;“非确定有穷自动机”（NFA - Non-deterministic finite automaton）。
 * DFA：在输入一个状态时，只得到一个固定的状态。DFA 可以认为是一种特殊的 NFA。
 * NFA：当输入一个字符或者条件得到一个状态机的集合。JavaScript 正则采用的是 NFA 引擎
 * ε-NFA：NFA的一个小分支。我们用ε边来表示一个状态可以不读入字符就跳转到另一个状态 上，ε-NFA就是在NFA中存在这种边的情况
 * 示例：实现一个正则为(a|b)*abb的自动机（https://www.bilibili.com/video/BV1zW411t7YE?p=15，07：05）
-  <br/>~&emsp;NFA的实现(状态0遇到a有0和1两种状态,无法确定)
+  <br/>
+  ~&emsp;NFA的实现(状态0遇到a有0和1两种状态,无法确定)
     ```
     →state：0  -a→ state:0
                -b→ state:0
@@ -29,9 +32,12 @@
 * 正则表达式可以等价的转为一个有穷自动机。
 * 正则引擎实际上就是使用自动计算法实现的。
 * DFA和NFA的关系：
-  <br/>~&emsp;DFA和NFA之间可以相互转换
-  <br/>~&emsp;NFA比DFA更加直观的看出它的匹配状态
-  <br/>~&emsp;DFA比NFA更加容易使用计算机进行实现
+  <br/>
+  ~&emsp;DFA和NFA之间可以相互转换
+  <br/>
+  ~&emsp;NFA比DFA更加直观的看出它的匹配状态
+  <br/>
+  ~&emsp;DFA比NFA更加容易使用计算机进行实现
 * 正则表达式的自动机实现（自动化词法生成器的实现）：
   因为NFA更直观，所以先将正则表达式转换为NFA。而DFA更容易使用代码实现，所以再将NFA转换为DFA。简而言之就是：正则表达式 → NFA → DFA
 * 正则表达式虽然可以等价转换为DFA，但为了简化代码，我们完全可以直接使用DFA实现一个词法分析器。
