@@ -153,7 +153,7 @@
   <br/>
   ~&emsp;数据：存放图片、数字、音频等数据类型等的数据最终编译链接成的机器码
   <br/>
-  ~&emsp;指令：告诉计算机执行何种操作
+  ~&emsp;[指令](https://www.zhihu.com/question/65385471/answer/231486020)：告诉计算机执行何种操作
   <br/>
   &emsp;&emsp;~~ 操作码(opcode)
   <br/>
