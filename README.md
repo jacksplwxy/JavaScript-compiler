@@ -231,11 +231,20 @@
 src
 ├─parse  语法分析
 │   ├─parser.ts 语法分析器
-│   ├─pages # 各个页面代码的存放处
-│   │─utils # 工具包
-│   ├─app.js # 全局JS
-│   ├─app.json # 全局配置
-│   └─app.wxss # 全局样式
+│   ├─xxx xxx
+│   │─xxx xxx
+│   ├─xxx xxx
+│   ├─xxx xxx
+│   └─xxx xxx
 ├─tokenizer 词法分析
 └─tsconfig.json # ts项目配置 
 ``` 
+## 参考文档：
+* 《编译原理》：Alfred V.Aho，机械工业出版社
+* 《编译原理》：哈工大·陈鄞，https://www.bilibili.com/video/BV1zW411t7YE
+* 《编译器实现Category》：https://www.hashcoding.net/categories/%E7%BC%96%E8%AF%91%E5%99%A8%E5%AE%9E%E7%8E%B0/
+* 《博客园·dejavudwh的博客》：https://www.cnblogs.com/secoding/p/11193700.html
+* 《RednaxelaFX写的文章/回答的导航帖》：https://zhuanlan.zhihu.com/p/25042028
+* 《kyjm/compiler-in-js》：https://github.com/kyjm/compiler-in-js
+* 《jquery/esprima》：https://github.com/jquery/esprima
+* 《estools/escodegen》：https://github.com/estools/escodegen
