@@ -1,9 +1,7 @@
 ## JavaScript-compiler项目简介：
 &emsp;&emsp;编译原理在编程世界中无处不在，是我们向高级或底层开发路上不得不要逾越的一道坎。编译原理比较复杂，我们不求写出一个完整的编译器，但掌握基本原理还是很有必要的。
 <br/>
-&emsp;&emsp;本项目是本人对编译原理学习的汇总，并尝试使用TypeScript实现一款简易JavaScript编译器，同时将对编译器的实现原理简明通俗阐述，去掉一些非核心流程的概念，希望可以帮忙需要了解编译器的朋友。
-<br/>
-&emsp;&emsp;核心内容：自动机、上下文无关文法、自顶向下语法分析、中序转换为后序算法解决语法优先级问题、中间代码生成、内存分配、运行时刻的词法作用域和闭包分析、opcode生成等。
+&emsp;&emsp;核心内容：自动机、上下文无关文法、自顶向下语法分析、中序转换为后序算法解决语法优先级问题、中间代码生成、内存分配、运行时分析、opcode生成等。
 <br/>
 &emsp;&emsp;理解不到位的地方还望斧正。
 
@@ -240,11 +238,11 @@ src
 └─tsconfig.json # ts项目配置 
 ``` 
 ## 参考文档：
-* 《编译原理》：Alfred V.Aho，机械工业出版社
-* 《编译原理》：哈工大·陈鄞，https://www.bilibili.com/video/BV1zW411t7YE
-* 《编译器实现Category》：https://www.hashcoding.net/categories/%E7%BC%96%E8%AF%91%E5%99%A8%E5%AE%9E%E7%8E%B0/
-* 《博客园·dejavudwh的博客》：https://www.cnblogs.com/secoding/p/11193700.html
-* 《RednaxelaFX写的文章/回答的导航帖》：https://zhuanlan.zhihu.com/p/25042028
-* 《kyjm/compiler-in-js》：https://github.com/kyjm/compiler-in-js
-* 《jquery/esprima》：https://github.com/jquery/esprima
-* 《estools/escodegen》：https://github.com/estools/escodegen
+* 《编译原理》：Alfred V.Aho，机械工业出版社
+* 《编译原理》：哈工大·陈鄞，https://www.bilibili.com/video/BV1zW411t7YE
+* 《编译器实现Category》：https://www.hashcoding.net/categories/%E7%BC%96%E8%AF%91%E5%99%A8%E5%AE%9E%E7%8E%B0/
+* 《博客园·dejavudwh的博客》：https://www.cnblogs.com/secoding/p/11193700.html
+* 《RednaxelaFX写的文章/回答的导航帖》：https://zhuanlan.zhihu.com/p/25042028
+* 《kyjm/compiler-in-js》：https://github.com/kyjm/compiler-in-js
+* 《jquery/esprima》：https://github.com/jquery/esprima
+* 《estools/escodegen》：https://github.com/estools/escodegen
