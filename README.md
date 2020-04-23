@@ -13,6 +13,8 @@
 * 热更新：接触过小程序开发的同学应该知道，小程序运行的环境禁止new Function，eval等方法的使用，导致我们无法直接执行字符串形式的动态代码。此外，许多平台也对这些JS自带的可执行动态代码的方法进行了限制，那么我们是没有任何办法了吗？既然如此，我们便可以用JS写一个解析器，让JS自己去运行自己。
 * 开发跨平台工具：例如京东开源框架Taro，可以只书写一套代码，再通过Taro的编译工具，将源代码分别编译出可以在不同端（微信小程序、H5、App 端等）运行的代码。类似的还有Egret、Weex等等
 * 其他常用工具：代码压缩、混淆等
+* 用 JavaScript 写成的 JavaScript 解释器，意义是什么？ - caoglish的回答 - 知乎
+https://www.zhihu.com/question/20004379/answer/20123641
 ### 编译流程：
 * 常规编译过程：
   源码（source code） → 词法分析器（Lexical Analyzer） → 符号流（tokens） → 语法分析器（Syntax Analyzer） → 抽象语法树 → 语义分析（Semantics Analyzer） → 抽象语法树 → 中间代码生成（Intermediate Code/Language Generator） → 中间表现形式 → 代码优化器（Code Optimizer） → 中间表现形式 → 代码生成（Code Generator） → 目标机器语言
