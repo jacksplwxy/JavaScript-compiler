@@ -285,6 +285,3 @@ export class Tokenizer {
     }
 }
 
-//代码测试
-// let tokenizer = new Tokenizer('var myName = jacksplwxy + test')
-// console.log('结果:', tokenizer.tokens)

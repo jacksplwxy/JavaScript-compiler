@@ -5,6 +5,28 @@
 <br/>
 &emsp;&emsp;理解不到位的地方还望斧正。
 
+
+## 目录
+### [01 词法分析](./01_词法分析/README.md)
+### [02 语法分析](./02_语法分析/README.md)
+### [03 中间代码生成](./03_中间代码生成/README.md)
+### [04 运行时刻环境](./04_运行时刻环境/README.md)
+### [05 目标代码生成](./05_目标代码生成/README.md)
+### 源码目录结构：
+```
+src
+├─common 公共库
+├─parse  语法分析
+│   ├─expression.ts  表达式
+│   ├─exprParser.ts  表达式解析器
+│   │─parser.ts   语法解析器
+│   ├─statement.ts  陈述语句
+│   └─terminal.ts  终结符
+├─tokenizer 词法分析
+│   └─tokenizer.ts  词法解析器        
+└─tsconfig.json # ts项目配置 
+``` 
+
 ## 编译器：
 ### 什么是编译器：
 &emsp;&emsp;编译器就是将一种编程语言转换为另一种编程语言的程序
@@ -221,25 +243,7 @@ https://www.zhihu.com/question/20004379/answer/20123641
     <br/>
   ~&emsp;因为java需要经过一次JVM转机器码才能运行，所以比c、c++直接编译机器码多一道流程，所以更慢一些
 
-## 目录
-### [01 词法分析](./01_词法分析/README.md)
-### [02 语法分析](./02_语法分析/README.md)
-### [03 中间代码生成](./03_中间代码生成/README.md)
-### [04 运行时刻环境](./04_运行时刻环境/README.md)
-### [05 目标代码生成](./05_目标代码生成/README.md)
-### 源码目录结构：
-```
-src
-├─parse  语法分析
-│   ├─parser.ts 语法分析器
-│   ├─xxx xxx
-│   │─xxx xxx
-│   ├─xxx xxx
-│   ├─xxx xxx
-│   └─xxx xxx
-├─tokenizer 词法分析
-└─tsconfig.json # ts项目配置 
-``` 
+
 ## 参考文档：
 * 《编译原理》：Alfred V.Aho，机械工业出版社
 * 《编译原理》：哈工大·陈鄞，https://www.bilibili.com/video/BV1zW411t7YE
