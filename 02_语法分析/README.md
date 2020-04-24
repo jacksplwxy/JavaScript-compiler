@@ -347,24 +347,24 @@
   例如 赋值语句(assign statement)： var x=1
   例如 if语句(if statement)： if(Expr){}[else if(){}]else{}
     ```
-* if语句的递归向下分析：
+* if语句的分析：
   ```
   parseIfStmt() → eat(if) → parseExpr() → parseBlock() → eat(else) → parseIfStmt()
                 | eat(if) → parseExpr() → parseBlock()
                 | eat(if) → parseExpr() → parseBlock() → eat(else) → parseBlock() (该过程可简化为一个parseBlock())
   ```
-* function语句的递归向下分析：
+* function语句的分析：
   ```
   parseFnStmt() → eat(function) → eat(id) → eat(params) → parseBlock()
   params → e | param,params
   param → Literal(可能是id、number、string)
   ```
-* class语句的递归向下分析：
+* class语句的分析：
   ```
   parseClassStmt() → eat(class) → eat(id) → eat(extends) → eat(id) → parseBlock()
                    | eat(class) → eat(id) → parseBlock()
   ```
-* import语句的递归向下分析：
+* import语句的分析：
   ```
   parseImportStmt() → eat(import) → eat(id | object | array) → eat(from) → eat(string)
   ```
@@ -373,6 +373,10 @@
   program → statements | e
   statements → statement statements | e
   statement → assignStmt | ifStmt | whileStmt | switchStmt | functionStmt | forStmt | classStmt |importStmt ...
+  statement → statement + Expr | Expr + Literal | ...
+  Expr → Expr + Term | Expr - Term | Expr
+  Term → -Expr | (Expr) | Term * Literal | Term / Literal | Literal
+  Literal → number | variable | string
   ```
 * 复杂表达式的解析：以上只能解决+-*/的优先级问题，多层优先级问题使用后序遍历解决
 * 中序表达式：例如：a+b*c、a*b+c。树节点的左子树一定比右子树先遍历，即先处理左树再节点再右树，但不太适合解析
