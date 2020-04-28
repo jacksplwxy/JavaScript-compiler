@@ -4,7 +4,12 @@
         "noImplicitAny": false,
         "module": "umd",
         "removeComments": false,
-        "sourceMap": false,
-        "outDir": "dist"
+        "sourceMap": true,
+        "outDir": "dist",
+        "lib": [
+            "ES2017",
+            "DOM",
+            "DOM.Iterable"
+        ]
     }
 }

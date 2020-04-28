@@ -1,10 +1,9 @@
 
 
-import { Expr } from './expression'
+import { Expr, FunctionCallExpr, AssignExpr } from './expression'
 import { Parser } from './parser'
 import { IToken } from '../tokenizer/tokenizer'
 import { Terminal, Identifier } from './terminal'
-import { IStmt, FunctionCallStmt, AssignStmt } from './statement'
 
 //表达式parser
 export class expressionParser {
@@ -29,24 +28,23 @@ export class expressionParser {
     constructor(private parser: Parser) { }
 
     //表达式解析方法
-    public exprParser(): (Expr | Terminal | FunctionCallStmt | AssignStmt) {
+    public exprParser(): (Expr | Terminal) {
         if (this.parser.lookahead.value === ')') {
             return null
         }
         // PreOrder : 前序
         // inOrder : 中序
         // PostOrder : 后序
-        // debugger
         return this.constructAST(this.inOrderToPostOrder())
     }
 
     //构建AST：abcd+*+ → ab(c+d)*+ → ab*(c+d)+ → a+b*(c+d)
-    private constructAST(postOrderOutput: Array<IToken | Terminal | FunctionCallStmt | AssignStmt>): (Expr | Terminal | FunctionCallStmt | AssignStmt) {
+    private constructAST(postOrderOutput: Array<IToken | Terminal | Expr>): (Expr | Terminal) {
         const stack = []
         for (let i = 0; i < postOrderOutput.length; i++) {
-            const current: (IToken | Terminal | FunctionCallStmt | AssignStmt) = postOrderOutput[i]
+            const current: (IToken | Terminal | Expr) = postOrderOutput[i]
             if ((<IToken>current).type === 'operator') {
-                const r: (Terminal | FunctionCallStmt | AssignStmt | Expr) = stack.pop()
+                const r: (Terminal | Expr) = stack.pop()
                 const l: Identifier = stack.pop()
                 const expr: Expr = new Expr((<IToken>current).value, l, r)
                 stack.push(expr)
@@ -77,9 +75,9 @@ export class expressionParser {
     /**
      * 后序遍历实现表达式优先级算法：中序表达式a+b*(c+d)的转换后序表达式abcd+*+
      */
-    private inOrderToPostOrder(): Array<IToken | Terminal | FunctionCallStmt | AssignStmt> {
+    private inOrderToPostOrder(): Array<IToken | Terminal | Expr> {
         const opStack: Array<IToken> = []
-        const output: Array<IToken | Terminal | FunctionCallStmt | AssignStmt> = []
+        const output: Array<IToken | Terminal | Expr> = []
         while (this.parser.lookahead.value != 'eof' && this.parser.lookahead.value !== '}') {
             if (this.parser.lookahead.value === '(') {
                 opStack.push(this.parser.lookahead)
@@ -115,7 +113,7 @@ export class expressionParser {
                     opStack.push(op)
                 }
             } else {
-                const factor: (Terminal | FunctionCallStmt | AssignStmt) = this.parser.parseFactor()
+                const factor: (Terminal | Expr) = this.parser.parseFactor()
                 output.push(factor)
                 if (this.parser.lookahead.type != 'operator' || this.parser.lookahead.value === '=') {
                     break
