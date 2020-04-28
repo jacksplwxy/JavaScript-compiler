@@ -128,12 +128,11 @@ MOV AL,[1200H]
   ~ 压栈操作指令：
   ```
   push #1   将数字1压栈
-  push TOP  将寄存器TOP压栈指令：压栈：
+  push TOP  将寄存器TOP压栈
   push @sp  将指针sp指向的值压栈
   ```
   <br/>
   ~ 移动指令：
-  
   ```
   MOVE R0,R1  将寄存器R0的值移入到R1中
   MOVE #1 R0  将数字1移入寄存器R0中

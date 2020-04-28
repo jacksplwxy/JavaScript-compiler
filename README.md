@@ -12,20 +12,33 @@
 ### [03 中间代码生成](./03_中间代码生成/README.md)
 ### [04 运行时刻环境](./04_运行时刻环境/README.md)
 ### [05 目标代码生成](./05_目标代码生成/README.md)
-### 源码目录结构：
+
+
+## 源码目录结构：
 ```
 src
-├─common 公共库
-├─parse  语法分析
-│   ├─expression.ts  表达式
-│   ├─exprParser.ts  表达式解析器
-│   │─parser.ts   语法解析器
-│   ├─statement.ts  陈述语句
-│   └─terminal.ts  终结符
+├─common  公共库
+├─demo
+│   │─tokenizer.ts      词法解析器demo
+│   │─parser.ts         语法解析器demo
+│   ├─ILGen.ts          中间码生成demo
+│   └─opcodeCompiler.ts 机器码生成demo
+├─parse 语法分析
+│   ├─expression.ts     表达式
+│   ├─exprParser.ts     表达式解析器
+│   │─parser.ts         语法解析器
+│   ├─statement.ts      陈述语句
+│   └─terminal.ts       终结符
 ├─tokenizer 词法分析
-│   └─tokenizer.ts  词法解析器        
-└─tsconfig.json # ts项目配置 
+│   └─tokenizer.ts      词法解析器        
+├─opcodeCompiler  机器码生成  
+│   └─opcodeCompiler.ts opcode翻译    
+├─SDT 语法制导翻译
+│   ├─ILGen.ts          中间码生成
+│   └─LexicalScope.ts   词法作用域
+└─tsconfig.json         ts项目配置 
 ``` 
+
 
 ## 编译器：
 ### 什么是编译器：
