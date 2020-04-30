@@ -299,7 +299,7 @@
   ![LL和LR的范围](imgs/LL(k)和LR(k)的解析范围.jpg)
   
 * 该js parse将采用手写递归下降parser：从LL1开始，如果遇到实在不能解析的语法再扩大lookahead范围或加入ad-hoc，即自顶向下递归下降 + lookahead + ad-hoc + 运算符优先级 → AST
-* 表达式自顶向下分析方法过程：解析过程是通过3个解析函数，按照解析顺序自顶向下：parseExpr() → parseTerm() → parseLiteral()
+* 简单表达式的解析过程：解析过程是通过3个解析函数，按照解析顺序自顶向下：parseExpr() → parseTerm() → parseLiteral()
 * EOF：end of file，程序编写中的一个小技巧，将EOF加入到tokens流的结尾，避免一些边界条件判断，俗称“哨兵”
 * 表达式顺序解析：但是该解析存在优先级的问题
     ```
@@ -344,43 +344,7 @@
     Term  → LiteralTerm` | -ExprTerm` | (Expr)Term`
     Term` → *Term | /Term | e
     ```
-* statement：陈述语句。
-    ```
-  例如 赋值语句(assign statement)： var x=1
-  例如 if语句(if statement)： if(Expr){}[else if(){}]else{}
-    ```
-* if语句的分析：
-  ```
-  parseIfStmt() → eat(if) → parseExpr() → parseBlock() → eat(else) → parseIfStmt()
-                | eat(if) → parseExpr() → parseBlock()
-                | eat(if) → parseExpr() → parseBlock() → eat(else) → parseBlock() (该过程可简化为一个parseBlock())
-  ```
-* function语句的分析：
-  ```
-  parseFnStmt() → eat(function) → eat(id) → eat(params) → parseBlock()
-  params → e | param,params
-  param → Literal(可能是id、number、string)
-  ```
-* class语句的分析：
-  ```
-  parseClassStmt() → eat(class) → eat(id) → eat(extends) → eat(id) → parseBlock()
-                   | eat(class) → eat(id) → parseBlock()
-  ```
-* import语句的分析：
-  ```
-  parseImportStmt() → eat(import) → eat(id | object | array) → eat(from) → eat(string)
-  ```
-* 整体的语法分析：
-  ```
-  program → statements | e
-  statements → statement statements | e
-  statement → assignStmt | ifStmt | whileStmt | switchStmt | functionStmt | forStmt | classStmt |importStmt ...
-  statement → statement + Expr | Expr + Literal | ...
-  Expr → Expr + Term | Expr - Term | Expr
-  Term → -Expr | (Expr) | Term * Literal | Term / Literal | Literal
-  Literal → number | variable | string
-  ```
-* 复杂表达式的解析：以上只能解决+-*/的优先级问题，多层优先级问题使用后序遍历解决
+* 复杂表达式的解析：通过引入其他非终结符Term只能解决+-*/这种简单表达式的优先级问题，多层优先级问题使用后序遍历算法解决
 * 中序表达式：例如：a+b*c、a*b+c。树节点的左子树一定比右子树先遍历，即先处理左树再节点再右树，但不太适合解析
 * 后序表达式：例如：ab+c*、ab*c+，适合解析
 * 中序转换为后序：
@@ -430,4 +394,40 @@
     ⑥其他出栈 → stack：  ,abcd+*+
     ⑦abcd+*+ → ab(c+d)*+ → ab*(c+d)+ → a+b*(c+d)
     ```
+* statement：陈述语句。
+    ```
+  例如 赋值语句(assign statement)： var x=1
+  例如 if语句(if statement)： if(Expr){}[else if(){}]else{}
+    ```
+* if语句的分析：
+  ```
+  parseIfStmt() → eat(if) → parseExpr() → parseBlock() → eat(else) → parseIfStmt()
+                | eat(if) → parseExpr() → parseBlock()
+                | eat(if) → parseExpr() → parseBlock() → eat(else) → parseBlock() (该过程可简化为一个parseBlock())
+  ```
+* function语句的分析：
+  ```
+  parseFnStmt() → eat(function) → eat(id) → eat(params) → parseBlock()
+  params → e | param,params
+  param → Literal(可能是id、number、string)
+  ```
+* class语句的分析：
+  ```
+  parseClassStmt() → eat(class) → eat(id) → eat(extends) → eat(id) → parseBlock()
+                   | eat(class) → eat(id) → parseBlock()
+  ```
+* import语句的分析：
+  ```
+  parseImportStmt() → eat(import) → eat(id | object | array) → eat(from) → eat(string)
+  ```
+* 整体的分析文法：
+  ```
+  program → statements | e
+  statements → statement statements | e
+  statement → assignStmt | ifStmt | whileStmt | switchStmt | functionStmt | forStmt | classStmt |importStmt ...
+  statement → statement + Expr | Expr + Literal | ...
+  Expr → Expr + Term | Expr - Term | Expr
+  Term → -Expr | (Expr) | Term * Literal | Term / Literal | Literal
+  Literal → number | variable | string
+  ```
 * [语法分析器代码入口](../src/parser/parser.ts)
