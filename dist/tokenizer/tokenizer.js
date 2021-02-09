@@ -12,6 +12,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Tokenizer = void 0;
     const LexicalError_1 = require("../common/LexicalError");
     class Tokenizer {
         constructor(sourceCode) {

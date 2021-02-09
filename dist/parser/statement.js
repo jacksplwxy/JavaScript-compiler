@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Program = exports.Block = exports.Function = exports.ReturnStmt = exports.IfStmt = exports.DeclareStmt = exports.Stmt = void 0;
     const LexicalScope_1 = require("../SDT/LexicalScope");
     const ILGen_1 = require("../SDT/ILGen");
     //定义陈述语言抽象类

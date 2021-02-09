@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Parser = void 0;
     const tokenizer_1 = require("../tokenizer/tokenizer");
     const statement_1 = require("./statement");
     const expression_1 = require("./expression");

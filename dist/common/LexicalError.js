@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LexicalError = void 0;
     class LexicalError extends Error {
         constructor(msg) {
             super(msg);

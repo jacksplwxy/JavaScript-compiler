@@ -1,7 +1,7 @@
 
 
 export class OpcodeCompiler {
-    private lines: Array<string>    //结果列表
+    private lines: Array<string>    //opcode机器码列表
     private symbolTable: SymbolTable    //对应的符号表
     constructor() { }
 
@@ -120,6 +120,7 @@ export class OpcodeCompiler {
         }
     }
 
+    //根据中间码和词法作用域符号表解析出opcode
     public parse(sourceCode: string, symbols: ISymbols): void {
         this.lines = [] //初始化结果列表
         this.symbolTable = new SymbolTable(symbols) //创建符号表
@@ -172,6 +173,7 @@ export class OpcodeCompiler {
     }
 }
 
+//词法作用域关键信息符号表
 interface ISymbols {
     id: number
     table: object
@@ -179,16 +181,18 @@ interface ISymbols {
     type?: string
     argc?: number
 }
+//全局hash，存放各级符号表
 interface IHash {
     id?: SymbolTable
 }
+//本级符号表
 interface ITable {
     index: number   //在table中的索引位置
     level: number   //层级
     scopeId: number //作用域ID
     type: string    //数据类型
 }
-//符号表类
+//关联各个作用域符号表的符号表汇总
 class SymbolTable {
     private hash: IHash //全局hash，存放各级符号表
     private table: ITable   //本级符号表

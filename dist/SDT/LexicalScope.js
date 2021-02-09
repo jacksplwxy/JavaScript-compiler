@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LexicalScope = void 0;
     class LexicalScope {
         constructor(parent, others) {
             this.parent = parent;
@@ -94,7 +95,7 @@
             return obj;
         }
     }
-    LexicalScope.scopeId = 1;
     exports.LexicalScope = LexicalScope;
+    LexicalScope.scopeId = 1;
 });
 //# sourceMappingURL=LexicalScope.js.map

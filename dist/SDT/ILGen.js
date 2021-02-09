@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.ILGen = void 0;
     class ILGen {
         constructor() {
             this.stack = [];
@@ -74,8 +75,8 @@
             return text;
         }
     }
-    ILGen.labelCounter = 1;
     exports.ILGen = ILGen;
+    ILGen.labelCounter = 1;
     //片段
     class Section {
         constructor(mark) {

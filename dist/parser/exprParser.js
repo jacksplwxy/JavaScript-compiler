@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.expressionParser = void 0;
     const expression_1 = require("./expression");
     //表达式parser
     class expressionParser {

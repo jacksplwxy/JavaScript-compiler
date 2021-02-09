@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Numeral = exports.Identifier = exports.Terminal = void 0;
     class Terminal {
         constructor(value) {
             this.value = value;

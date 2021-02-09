@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.OpcodeCompiler = void 0;
     class OpcodeCompiler {
         constructor() { }
         //通过寄存器+偏移量寻址
@@ -128,6 +129,7 @@
                 }
             }
         }
+        //根据中间码和词法作用域符号表解析出opcode
         parse(sourceCode, symbols) {
             this.lines = []; //初始化结果列表
             this.symbolTable = new SymbolTable(symbols); //创建符号表
@@ -179,7 +181,7 @@
         }
     }
     exports.OpcodeCompiler = OpcodeCompiler;
-    //符号表类
+    //关联各个作用域符号表的符号表汇总
     class SymbolTable {
         constructor(symbols, parent, level = 0) {
             this.symbols = symbols;

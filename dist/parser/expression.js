@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Args = exports.AssignExpr = exports.FunctionCallExpr = exports.Expr = void 0;
     class Expr {
         constructor(op, left, right) {
             this.op = op;
