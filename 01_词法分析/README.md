@@ -86,4 +86,6 @@
              -.→ state:3     -0-9→ state:5           
              -others→ err
   ```
+  <img src="../README/imgs/automat.jpg" alt="替代文本">
+
 * [词法分析器代码入口](../src/tokenizer/tokenizer.ts)
